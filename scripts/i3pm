@@ -1,0 +1,30 @@
+#!/bin/sh
+
+function lock()
+{
+    i3lock -t -i /home/michi/Pictures/singlespeed_retro_bike_poster.png
+}
+
+case "$1" in
+	suspend)
+        lock || exit $?
+
+        dbus-send --system --print-reply \
+            --dest="org.freedesktop.login1" \
+            /org/freedesktop/login1 \
+            org.freedesktop.login1.Manager.Suspend boolean:true
+		;;
+	hibernate)
+        lock || exit $?
+
+		dbus-send --system --print-reply \
+            --dest="org.freedesktop.login1" \
+            /org/freedesktop/login1 \
+            org.freedesktop.login1.Manager.Hibernate boolean:true
+		;;
+	*)
+		echo "$0 <suspend|hibernate>"
+		exit 1
+esac
+
+# vim:set ts=4 sw=4 ft=sh et:
