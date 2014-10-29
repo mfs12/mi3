@@ -1,0 +1,29 @@
+#!/bin/sh
+
+dbus_send()
+{
+    dbus-send --session --print-reply \
+            --dest="org.mpris.MediaPlayer2.vlc" \
+            /org/mpris/MediaPlayer2 \
+            org.mpris.MediaPlayer2.Player.$@
+}
+
+case "$1" in
+    next)
+        dbus_send Next
+        ;;
+    pause)
+        dbus_send Pause
+        ;;
+    play)
+        dbus_send Play
+        ;;
+    previous)
+        dbus_send Previous
+        ;;
+	*)
+		echo "$0 <next|previouse|pause|play>"
+		exit 1
+esac
+
+# vim:set ts=4 sw=4 ft=sh et:
