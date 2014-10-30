@@ -148,10 +148,8 @@ bindsym $mod+r mode "resize"
 mode "media" {
         # These bindings trigger as soon as you enter the media mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
+
+
         bindsym h exec i3media previous
         bindsym j exec i3media pause
         bindsym k exec i3media play
