@@ -155,6 +155,7 @@ mode "media" {
         bindsym k exec i3media play
         bindsym l exec i3media next
 
+        bindsym s exec i3media start
         bindsym q exec i3media quit
         bindsym r exec i3media raise
 
