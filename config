@@ -168,7 +168,7 @@ mode "media" {
 
 bindsym $mod+m mode "media"
 
-bindsym $mod+Shift+p exec i3lock -t -i "/home/michi/Pictures/singlespeed_retro_bike_poster.png"
+bindsym $mod+Shift+p exec i3pm lock
 
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ -- toggle
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -- -5%
