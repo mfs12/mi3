@@ -148,7 +148,9 @@ bindsym $mod+r mode "resize"
 mode "media" {
         # These bindings trigger as soon as you enter the media mode
 
-
+	bindsym m exec pactl set-sink-mute @DEFAULT_SINK@ -- toggle
+	bindsym c exec pactl set-sink-volume @DEFAULT_SINK@ -- -5%
+	bindsym v exec pactl set-sink-volume @DEFAULT_SINK@ -- +5%
 
         bindsym h exec i3media previous
         bindsym j exec i3media pause
