@@ -2,10 +2,13 @@
 
 function lock()
 {
-    i3lock -t -i /home/michi/Pictures/singlespeed_retro_bike_poster.png
+    i3lock -t -i ${HOME}/Pictures/singlespeed_retro_bike_poster.png
 }
 
 case "$1" in
+    lock)
+        lock || exit $?
+        ;;
 	suspend)
         lock || exit $?
 
@@ -35,7 +38,7 @@ case "$1" in
             org.freedesktop.login1.Manager.PowerOff boolean:true
 		;;
 	*)
-		echo "$0 <suspend|hibernate|reboot|poweroff>"
+		echo "$0 <suspend|hibernate|lock|reboot|poweroff>"
 		exit 1
 esac
 
