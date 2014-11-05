@@ -23,6 +23,13 @@ font pango:DejaVu Sans Mono 8
 # X core fonts rendering does not support right-to-left and this being a bitmap
 # font, it doesn’t scale on retina/hidpi displays.
 
+#colourclass            border    bckgrnd    text
+client.focused          #125612   #126612    #FFFFFF
+client.focused_inactive #000000   #224422    #FFFFFF
+client.unfocused        #000000   #224422    #FFFFFF
+client.urgent           #FF2222   #FF2222    #000000
+
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -178,6 +185,16 @@ bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ -- +5%
 # finds out, if available)
 bar {
         status_command i3status
+        colors {
+                background #101810
+                separator  #204420
+                statusline #ffffff
+
+                focused_workspace  #327610 #327610 #ffffff
+                active_workspace   #324610 #324610 #ffffff
+                inactive_workspace #333333 #222222 #888888
+                urgent_workspace   #324610 #a00000 #ffffff
+        }
 }
 
 exec --no-startup-id xset dpms 0 0 0
