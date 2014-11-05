@@ -1,45 +1,43 @@
 #!/bin/sh
 
-function lock()
+lock()
 {
-    i3lock -t -i ${HOME}/Pictures/singlespeed_retro_bike_poster.png
+	i3lock -t -i ${HOME}/Pictures/singlespeed_retro_bike_poster.png
+}
+
+dbus_send()
+{
+        dbus-send --system --print-reply \
+		--dest="org.freedesktop.login1" \
+		/org/freedesktop/login1 \
+	        org.freedesktop.login1.Manager.$@
 }
 
 case "$1" in
-    lock)
-        lock || exit $?
-        ;;
+	lock)
+		lock || exit $?
+		;;
 	suspend)
-        lock || exit $?
+		lock || exit $?
 
-        dbus-send --system --print-reply \
-            --dest="org.freedesktop.login1" \
-            /org/freedesktop/login1 \
-            org.freedesktop.login1.Manager.Suspend boolean:true
+		dbus_send Suspend boolean:true
 		;;
 	hibernate)
-        lock || exit $?
+		lock || exit $?
 
-		dbus-send --system --print-reply \
-            --dest="org.freedesktop.login1" \
-            /org/freedesktop/login1 \
-            org.freedesktop.login1.Manager.Hibernate boolean:true
+		dbus_send Hibernate boolean:true
 		;;
 	reboot)
-		dbus-send --system --print-reply \
-            --dest="org.freedesktop.login1" \
-            /org/freedesktop/login1 \
-            org.freedesktop.login1.Manager.Reboot boolean:true
+		lock || exit $?
+
+		dbus_send Reboot boolean:true
 		;;
 	poweroff)
-		dbus-send --system --print-reply \
-            --dest="org.freedesktop.login1" \
-            /org/freedesktop/login1 \
-            org.freedesktop.login1.Manager.PowerOff boolean:true
+		lock || exit $?
+
+		dbus_send PowerOff boolean:true
 		;;
 	*)
 		echo "$0 <suspend|hibernate|lock|reboot|poweroff>"
 		exit 1
 esac
-
-# vim:set ts=4 sw=4 ft=sh et:
