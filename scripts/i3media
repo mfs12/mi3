@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/bash
+
+#set -x
 
 dbus_send()
 {
@@ -6,6 +8,22 @@ dbus_send()
             --dest="org.mpris.MediaPlayer2.vlc" \
             /org/mpris/MediaPlayer2 \
             org.mpris.MediaPlayer2.$@
+}
+
+notify_send()
+{
+       notify-send -a "i3media" -u "normal" "$@"
+}
+
+notify_volume()
+{
+        if pamixer --get-mute; then
+            msg="Volume muted"
+        else
+            msg="Volume $(pamixer --get-volume)"
+        fi
+
+        notify_send "$msg"
 }
 
 case "$1" in
@@ -27,11 +45,27 @@ case "$1" in
     raise)
         dbus_send Raise
         ;;
+    volume_mute)
+	    pactl set-sink-mute @DEFAULT_SINK@ -- toggle
+
+        notify_volume
+        ;;
+    volume_down)
+
+	    pactl set-sink-volume @DEFAULT_SINK@ -- -5%
+
+        notify_volume
+        ;;
+    volume_up)
+	    pactl set-sink-volume @DEFAULT_SINK@ -- +5%
+
+        notify_volume
+        ;;
     start)
         vlc &
         ;;
 	*)
-		echo "$0 <next|previouse|pause|play|quit|raise>"
+		echo "$0 <next|previouse|pause|play|quit|raise|volume_<down|mute|up>>"
 		exit 1
 esac
 
