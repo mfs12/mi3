@@ -1,0 +1,4 @@
+if [ -z "$DESKTOP_SESSION" ] || [ "$DESKTOP_SESSION" = "i3" ]; then
+	echo hallo > /tmp/thatsit
+	export $(gnome-keyring-daemon --start --components=secrets,ssh)
+fi
