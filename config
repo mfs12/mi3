@@ -155,9 +155,9 @@ bindsym $mod+r mode "resize"
 mode "media" {
 	# These bindings trigger as soon as you enter the media mode
 
-	bindsym m i3media volume_mute
-	bindsym c i3media volume_down
-	bindsym v i3media volume_up
+	bindsym m exec i3media volume_mute
+	bindsym c exec i3media volume_down
+	bindsym v exec i3media volume_up
 
 	bindsym h exec i3media previous
 	bindsym j exec i3media pause
