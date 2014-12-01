@@ -202,7 +202,8 @@ exec --no-startup-id xset s off
 exec --no-startup-id xsetroot -solid "#102210"
 #exec --no-startup-id feh --bg-fill $(HOME)/.i3/wallpaper.jpg
 
+exec --no-startup-id btsync-gui
+exec --no-startup-id clipit
 exec --no-startup-id dunst
 exec --no-startup-id nm-applet
-exec --no-startup-id btsync-gui
 exec --no-startup-id pa-applet
