@@ -3,7 +3,8 @@
 DISPLAY_BUILTIN=LVDS1
 DISPLAY_EXTERNAL=HDMI1
 
-if ! which xrandr; then
+if ! which xrandr &>/dev/null; then
+	echo "Error: xrandr not found" >&2
 	exit 1
 fi
 
