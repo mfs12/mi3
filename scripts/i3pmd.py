@@ -65,36 +65,33 @@ class Pmd:
         return self.session_iface.LockSessions('org.freedesktop.login1.Manager')
 
     def suspend(self):
-        return self.session_iface.Suspend('org.freedesktop.login1.Manager', True)
+        return self.session_iface.Suspend('org.freedesktop.login1.Manager')
 
     def hibernate(self):
-        return self.session_iface.Hibernate('org.freedesktop.login1.Manager', True)
+        return self.session_iface.Hibernate('org.freedesktop.login1.Manager')
 
     def hybrid_sleep(self):
-        return self.HybridSleep('org.freedesktop.login1.Manager', True)
+        return self.session_iface.HybridSleep('org.freedesktop.login1.Manager')
 
 def pmd_handler_update(interface_name, changed_properties, invalidated_properties):
     global pmd
 
     print ("pmd_handler_update: iname: " + interface_name)
-    print (" changed: ")
-    for entry in changed_properties:
-        print (entry)
-    print ("invalidated: ")
-    for entry in invalidated_properties:
-        print (entry)
-    changed_properties
-    invalidated_properties
+#    print (" changed: ")
+#    for entry in changed_properties:
+#        print (entry)
+#    print ("invalidated: ")
+#    for entry in invalidated_properties:
+#        print (entry)
 
     if not pmd.is_on_battery():
         return
 
-    if pmd.is_crit():
-        pmd.msg_crit.send()
-    elif pmd.is_low():
+    if pmd.is_low():
         pmd.msg_low.send()
 
     if pmd.is_crit():
+        pmd.msg_crit.send()
         if pmd.can_hybrid_sleep():
             pmd.hybrid_sleep()
         elif pmd.hibernate():
