@@ -1,10 +1,12 @@
-#!/usr/bin env python2
+#!/usr/bin/env python2
 
-import sys
 import dbus
-from dbus.mainloop.glib import DBusGMainLoop
-import pynotify
 import gobject
+import os
+import pynotify
+import sys
+
+from dbus.mainloop.glib import DBusGMainLoop
 
 class Pm_message:
     def __init__(self, urgency, message):
@@ -61,8 +63,9 @@ class Pmd:
         return self.session_iface.CanHibernate('org.freedesktop.login1.Manager') == 'yes'
 
     def lock(self):
-        # TODO or do i3pm stuff if i3pm is running
-        return self.session_iface.LockSessions('org.freedesktop.login1.Manager')
+#        # TODO or do i3pm stuff if i3pm is running
+#        return self.session_iface.LockSessions('org.freedesktop.login1.Manager')
+        os.system("i3pm lock")
 
     def suspend(self):
         return self.session_iface.Suspend('org.freedesktop.login1.Manager')
