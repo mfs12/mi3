@@ -35,8 +35,6 @@ class Pmd:
         self.session_iface = dbus.Interface(self.session, "org.freedesktop.login1.Manager")
         self.upower = self.bus.get_object("org.freedesktop.UPower", "/org/freedesktop/UPower")
         self.upower_iface = dbus.Interface(self.upower, "org.freedesktop.DBus.Properties")
-        #self.wakeup = self.bus.get_object("org.freedesktop.UPower", "/org/freedesktop/UPower/Wakeups")
-        #self.wakeup.connect_to_signal("DataChanged", pmd_handler_update)
         self.bat = self.bus.get_object("org.freedesktop.UPower", "/org/freedesktop/UPower/devices/battery_BAT1")
         self.bat_iface = dbus.Interface(self.bat, "org.freedesktop.DBus.Properties")
         self.bat.connect_to_signal("PropertiesChanged", pmd_handler_update)
@@ -54,13 +52,13 @@ class Pmd:
         return self.get_percentage() < self.crit_limit
 
     def can_suspend(self):
-        return self.session_iface.CanSuspend('org.freedesktop.login1.Manager') == 'yes'
+        return self.session_iface.CanSuspend() == 'yes'
 
     def can_hybrid_sleep(self):
-        return self.session_iface.CanHybridSleep('org.freedesktop.login1.Manager') == 'yes'
+        return self.session_iface.CanHybridSleep() == 'yes'
 
     def can_hibernate(self):
-        return self.session_iface.CanHibernate('org.freedesktop.login1.Manager') == 'yes'
+        return self.session_iface.CanHibernate() == 'yes'
 
     def lock(self):
 #        # TODO or do i3pm stuff if i3pm is running
@@ -68,13 +66,13 @@ class Pmd:
         os.system("i3pm lock")
 
     def suspend(self):
-        return self.session_iface.Suspend('org.freedesktop.login1.Manager')
+        return self.session_iface.Suspend(True)
 
     def hibernate(self):
-        return self.session_iface.Hibernate('org.freedesktop.login1.Manager')
+        return self.session_iface.Hibernate(True)
 
     def hybrid_sleep(self):
-        return self.session_iface.HybridSleep('org.freedesktop.login1.Manager')
+        return self.session_iface.HybridSleep(True)
 
 def pmd_handler_update(interface_name, changed_properties, invalidated_properties):
     global pmd
