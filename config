@@ -25,8 +25,8 @@ font pango:DejaVu Sans Mono 8
 
 #colourclass		border  bckgrnd text
 client.focused		#125612 #126612 #FFFFFF
-client.focused_inactive	#000000 #224422 #FFFFFF
-client.unfocused	#000000 #224422 #FFFFFF
+client.focused_inactive	#000000 #125412 #FFFFFF
+client.unfocused	#000000 #154015 #FFFFFF
 client.urgent		#FF2222 #FF2222 #000000
 
 
@@ -208,11 +208,12 @@ bar {
 exec --no-startup-id xset dpms 0 0 0
 exec --no-startup-id xset s off
 exec --no-startup-id xsetroot -solid "#102210"
-#exec --no-startup-id feh --bg-fill $(HOME)/.i3/wallpaper.jpg
+#exec --no-startup-id feh --bg-fill $(HOME)/.i3/wallpaper.png
 
 #exec --no-startup-id btsync-gui
 exec --no-startup-id clipit
 exec --no-startup-id dunst
 exec --no-startup-id i3pmd.py 12 8
 exec --no-startup-id nm-applet
+exec --no-startup-id owncloud
 exec --no-startup-id pa-applet
