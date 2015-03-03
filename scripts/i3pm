@@ -37,6 +37,12 @@ case "$1" in
 
 		dbus_send PowerOff boolean:true
 		;;
+	daemon)
+		# TODO start script to do power management
+		# needs to implement handler for
+		# - low and critical battery state
+		# - low and critical battery libnotify message
+		;;
 	*)
 		echo "$0 <suspend|hibernate|lock|reboot|poweroff>"
 		exit 1

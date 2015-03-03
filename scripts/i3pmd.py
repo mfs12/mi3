@@ -59,7 +59,8 @@ class Pmd:
         return self.session_iface.CanSuspend() == 'yes'
 
     def can_hybrid_sleep(self):
-        return self.session_iface.CanHybridSleep() == 'yes'
+        #return self.session_iface.CanHybridSleep() == 'yes'
+        return False
 
     def can_hibernate(self):
         return self.session_iface.CanHibernate() == 'yes'
