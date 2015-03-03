@@ -47,16 +47,16 @@ case "$1" in
 		;;
 	volume_mute)
 #		pamixer --toggle-mute
-		pactl set-sink-mute @DEFAULT_SINK@ -- toggle
+		pactl set-sink-mute @DEFAULT_SINK@ toggle
 		notify_volume
 		;;
 	volume_down)
 #		pamixer --decrease 5
-		pactl set-sink-volume @DEFAULT_SINK@ -- -5%
+		pactl set-sink-volume @DEFAULT_SINK@ -5%
 		;;
 	volume_up)
 #		pamixer --increase 5
-		pactl set-sink-volume @DEFAULT_SINK@ -- +5%
+		pactl set-sink-volume @DEFAULT_SINK@ +5%
 		;;
 	start)
 		vlc &
