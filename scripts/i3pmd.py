@@ -35,12 +35,16 @@ class Pmd:
         self.session_iface = dbus.Interface(self.session, "org.freedesktop.login1.Manager")
         self.upower = self.bus.get_object("org.freedesktop.UPower", "/org/freedesktop/UPower")
         self.upower_iface = dbus.Interface(self.upower, "org.freedesktop.DBus.Properties")
+        self.upower.connect_to_signal("PropertiesChanged", pmd_handler_upower_update)
         self.bat = self.bus.get_object("org.freedesktop.UPower", "/org/freedesktop/UPower/devices/battery_BAT1")
         self.bat_iface = dbus.Interface(self.bat, "org.freedesktop.DBus.Properties")
         self.bat.connect_to_signal("PropertiesChanged", pmd_handler_update)
 
     def is_on_battery(self):
-        return self.upower_iface.Get('org.freedesktop.UPower', 'OnBattery')
+        return self.upower_iface.Get('org.freedesktop.UPower', 'OnBattery') == True
+
+    def is_lid_closed(self):
+        return self.upower_iface.Get('org.freedesktop.UPower', 'LidIsClosed') == True
 
     def get_percentage(self):
         return int(self.bat_iface.Get('org.freedesktop.UPower.Device', 'Percentage'))
@@ -74,10 +78,17 @@ class Pmd:
     def hybrid_sleep(self):
         return self.session_iface.HybridSleep(True)
 
+def pmd_handler_upower_update(interface_name, changed_properties, invalidated_properties):
+    global pmd
+
+    if pmd.is_lid_closed():
+        pmd.lock()
+        return
+
 def pmd_handler_update(interface_name, changed_properties, invalidated_properties):
     global pmd
 
-    print ("pmd_handler_update: iname: " + interface_name)
+#    print ("pmd_handler_update: iname: " + interface_name)
 #    print (" changed: ")
 #    for entry in changed_properties:
 #        print (entry)
@@ -93,17 +104,18 @@ def pmd_handler_update(interface_name, changed_properties, invalidated_propertie
 
     if pmd.is_crit():
         pmd.msg_crit.send()
+        pmd.lock()
+
         if pmd.can_hybrid_sleep():
             pmd.hybrid_sleep()
-        elif pmd.hibernate():
+        elif pmd.can_hibernate():
             pmd.hibernate()
-        elif pmd.suspend():
+        elif pmd.can_suspend():
             pmd.suspend()
         else:
             print ("neither hybrid sleep, hibernate or suspend work")
 
-    # unset low and crit state
-
+    return
 
 def main():
     loop = gobject.MainLoop()
