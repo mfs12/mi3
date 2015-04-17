@@ -2,7 +2,8 @@
 
 lock()
 {
-	i3lock -t -i ${HOME}/Pictures/singlespeed_retro_bike_poster.png
+	i3lock -t -c "224444"
+	#i3lock -t -i ${HOME}/Pictures/background-image-circles-bubbles-sponge-soap-seamless-tileable-bole-amber.png
 }
 
 dbus_send()
