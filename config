@@ -24,9 +24,9 @@ font pango:DejaVu Sans Mono 8
 # font, it doesn’t scale on retina/hidpi displays.
 
 #colourclass		border  bckgrnd text
-client.focused		#125612 #126612 #FFFFFF
-client.focused_inactive	#000000 #125412 #FFFFFF
-client.unfocused	#000000 #154015 #FFFFFF
+client.focused		#125662 #126662 #FFFFFF
+client.focused_inactive	#000000 #125462 #FFFFFF
+client.unfocused	#000000 #154065 #FFFFFF
 client.urgent		#FF2222 #FF2222 #000000
 
 
@@ -133,6 +133,8 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Quit X?' -b 'Yes, exit i3' 'i3-msg exit'"
+# start another X11 login
+bindsym $mod+Shift+n exec "dm-tool switch-to-greeter"
 
 mode "display" {
 	# These bindings trigger as soon as you enter the resize mode
@@ -215,5 +217,5 @@ exec --no-startup-id clipit
 exec --no-startup-id dunst
 exec --no-startup-id i3pmd.py 12 8
 exec --no-startup-id nm-applet
-exec --no-startup-id owncloud
+#exec --no-startup-id owncloud
 exec --no-startup-id pa-applet
