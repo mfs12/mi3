@@ -219,3 +219,4 @@ exec --no-startup-id i3pmd.py 12 8
 exec --no-startup-id nm-applet
 #exec --no-startup-id owncloud
 exec --no-startup-id pa-applet
+exec --no-startup-id i3pmd.py 8 6
