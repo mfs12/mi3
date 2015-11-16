@@ -23,7 +23,7 @@ class Pm_message:
         n.show()
 
 class Pmd:
-    def __init__(self, low_limit, crit_limit):
+    def __init__(self, dbus_object, low_limit, crit_limit):
         self.low_limit = low_limit
         self.crit_limit = crit_limit
 
@@ -36,7 +36,7 @@ class Pmd:
         self.upower = self.bus.get_object("org.freedesktop.UPower", "/org/freedesktop/UPower")
         self.upower_iface = dbus.Interface(self.upower, "org.freedesktop.DBus.Properties")
         self.upower.connect_to_signal("PropertiesChanged", pmd_handler_upower_update)
-        self.bat = self.bus.get_object("org.freedesktop.UPower", "/org/freedesktop/UPower/devices/battery_BAT1")
+        self.bat = self.bus.get_object("org.freedesktop.UPower", dbus_object)
         self.bat_iface = dbus.Interface(self.bat, "org.freedesktop.DBus.Properties")
         self.bat.connect_to_signal("PropertiesChanged", pmd_handler_update)
 
@@ -107,11 +107,12 @@ def pmd_handler_update(interface_name, changed_properties, invalidated_propertie
         pmd.msg_crit.send()
         pmd.lock()
 
-        if pmd.can_hybrid_sleep():
-            pmd.hybrid_sleep()
-        elif pmd.can_hibernate():
-            pmd.hibernate()
-        elif pmd.can_suspend():
+#        if pmd.can_hybrid_sleep():
+#            pmd.hybrid_sleep()
+#        elif pmd.can_hibernate():
+#            pmd.hibernate()
+#        elif pmd.can_suspend():
+        if pmd.can_suspend():
             pmd.suspend()
         else:
             print ("neither hybrid sleep, hibernate or suspend work")
@@ -139,7 +140,7 @@ if __name__ == "__main__":
         crit = int(sys.argv[2])
 
     print "low", low, "crit", crit
-    pmd = Pmd(low, crit)
+    pmd = Pmd("/org/freedesktop/UPower/devices/battery_BAT0", low, crit)
 
     #print "low", pmd.is_low()
     #print "ciritcal", pmd.is_crit()
