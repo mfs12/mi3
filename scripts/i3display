@@ -1,7 +1,8 @@
 #!/bin/bash
 
 DISPLAY_BUILTIN=LVDS1
-DISPLAY_EXTERNAL=HDMI2
+DISPLAY_EXTERNAL=HDMI1
+DISPLAY_DOCK=HDMI2
 
 if ! which xrandr &>/dev/null; then
 	echo "Error: xrandr not found" >&2
@@ -10,7 +11,7 @@ fi
 
 case $1 in
 	dock)
-		xrandr --output $DISPLAY_EXTERNAL --auto --output $DISPLAY_BUILTIN --off
+		xrandr --output $DISPLAY_EXTERNAL --off --output $DISPLAY_DOCK --auto --output $DISPLAY_BUILTIN --off
 		;;
 	hdmi|ext)
 		xrandr --output $DISPLAY_EXTERNAL --auto --output $DISPLAY_BUILTIN --off --output $DISPLAY_DOCK --off
@@ -19,16 +20,22 @@ case $1 in
 		xrandr --output $DISPLAY_EXTERNAL --off --output $DISPLAY_BUILTIN --off --output $DISPLAY_DOCK --auto
 		;;
 	laptop)
-		xrandr --output $DISPLAY_EXTERNAL --off --output $DISPLAY_BUILTIN --auto
+		xrandr --output $DISPLAY_EXTERNAL --off --output $DISPLAY_DOCK --off --output $DISPLAY_BUILTIN --auto
 		;;
 	mirror)
-		xrandr --output $DISPLAY_EXTERNAL --auto --same-as $DISPLAY_BUILTIN --output $DISPLAY_BUILTIN --auto
+		xrandr \
+			--output $DISPLAY_EXTERNAL --auto --same-as $DISPLAY_BUILTIN --output $DISPLAY_DOCK --off \
+			--output $DISPLAY_BUILTIN --auto
 		;;
 	right)
-		xrandr --output $DISPLAY_EXTERNAL --auto --right-of $DISPLAY_BUILTIN --output $DISPLAY_BUILTIN --auto
+		xrandr \
+			--output $DISPLAY_EXTERNAL --auto --right-of $DISPLAY_BUILTIN --output $DISPLAY_DOCK --off \
+			--output $DISPLAY_BUILTIN --auto
 		;;
 	left)
-		xrandr --output $DISPLAY_EXTERNAL --auto --left-of $DISPLAY_BUILTIN --output $DISPLAY_BUILTIN --auto
+		xrandr \
+			--output $DISPLAY_EXTERNAL --auto --left-of $DISPLAY_BUILTIN --output $DISPLAY_DOCK --off \
+			--output $DISPLAY_BUILTIN --auto
 		;;
 	*)
 		echo "$0 [dock|laptop|hdmi|mirror|right|left]"
