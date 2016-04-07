@@ -1,7 +1,8 @@
 #!/bin/bash
 
-DISPLAY_BUILTIN=LVDS1
+DISPLAY_BUILTIN=eDP1
 DISPLAY_EXTERNAL=HDMI1
+DISPLAY_DOCK=DP1
 
 if ! which xrandr &>/dev/null; then
 	echo "Error: xrandr not found" >&2
@@ -10,10 +11,13 @@ fi
 
 case $1 in
 	laptop)
-		xrandr --output $DISPLAY_EXTERNAL --off --output $DISPLAY_BUILTIN --auto
+		xrandr --output $DISPLAY_EXTERNAL --off --output $DISPLAY_BUILTIN --auto --output $DISPLAY_DOCK --off
 		;;
-	hdmi)
-		xrandr --output $DISPLAY_EXTERNAL --auto --output $DISPLAY_BUILTIN --off
+	hdmi|ext)
+		xrandr --output $DISPLAY_EXTERNAL --auto --output $DISPLAY_BUILTIN --off --output $DISPLAY_DOCK --off
+		;;
+	dock)
+		xrandr --output $DISPLAY_EXTERNAL --off --output $DISPLAY_BUILTIN --off --output $DISPLAY_DOCK --auto
 		;;
 	mirror)
 		xrandr --output $DISPLAY_EXTERNAL --auto --same-as $DISPLAY_BUILTIN --output $DISPLAY_BUILTIN --auto
@@ -25,7 +29,7 @@ case $1 in
 		xrandr --output $DISPLAY_EXTERNAL --auto --left-of $DISPLAY_BUILTIN --output $DISPLAY_BUILTIN --auto
 		;;
 	*)
-		echo "$0 [laptop|hdmi|mirror|right|left]"
+		echo "$0 [laptop|ext|dock|mirror|right|left]"
 		exit 1
 		;;
 esac
