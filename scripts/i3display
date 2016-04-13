@@ -27,6 +27,11 @@ case $1 in
 			--output $DISPLAY_EXTERNAL --auto --same-as $DISPLAY_BUILTIN --output $DISPLAY_DOCK --off \
 			--output $DISPLAY_BUILTIN --auto
 		;;
+	mirror_hd)
+		xrandr \
+			--output $DISPLAY_EXTERNAL --scale 0.7x0.7 --auto --same-as $DISPLAY_BUILTIN --output $DISPLAY_DOCK --off \
+			--output $DISPLAY_BUILTIN --auto
+		;;
 	right)
 		xrandr \
 			--output $DISPLAY_EXTERNAL --auto --right-of $DISPLAY_BUILTIN --output $DISPLAY_DOCK --off \
