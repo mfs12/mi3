@@ -24,11 +24,12 @@ font pango:DejaVu Sans Mono 8
 # font, it doesn’t scale on retina/hidpi displays.
 
 #colourclass		border  bckgrnd text
-client.focused		#125662 #126662 #FFFFFF
+client.focused		#a0a0a0 #a030r3 #000000
 client.focused_inactive	#000000 #125462 #FFFFFF
 client.unfocused	#000000 #154065 #FFFFFF
 client.urgent		#FF2222 #FF2222 #000000
 
+new_window pixel 2
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
