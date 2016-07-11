@@ -1,6 +1,7 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python2
 
 import pyudev
+import os
 
 def main():
     context = pyudev.Context()
@@ -11,6 +12,7 @@ def main():
     monitor.filter_by(subsystem="drm")
     for device in iter(monitor.poll, None):
         print('{0} {1}'.format(device.action, device))
+        os.system("xrandr --auto")
 
 if __name__ == "__main__":
         main()
