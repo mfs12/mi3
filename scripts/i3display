@@ -2,7 +2,7 @@
 
 DISPLAY_BUILTIN=eDP1
 DISPLAY_EXTERNAL=HDMI1
-DISPLAY_DOCK=DP1
+DISPLAY_DOCK=DP2-2
 
 if ! which xrandr &>/dev/null; then
 	echo "Error: xrandr not found" >&2
