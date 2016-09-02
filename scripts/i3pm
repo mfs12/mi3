@@ -2,15 +2,21 @@
 
 lock()
 {
-	i3lock -t -i ${HOME}/.i3/wallpaper.png -c 000000
+	#i3lock -t -i ${HOME}/.i3/wallpaper.png -c 000000
+	busctl call \
+		org.freedesktop.DisplayManager \
+		/org/freedesktop/DisplayManager/Seat0 \
+		org.freedesktop.DisplayManager.Seat \
+		Lock
 }
 
 dbus_send()
 {
-        dbus-send --system --print-reply \
-		--dest="org.freedesktop.login1" \
+	busctl call \
+		org.freedesktop.login1 \
 		/org/freedesktop/login1 \
-	        org.freedesktop.login1.Manager.$@
+		org.freedesktop.login1.Manager \
+		"$1" b True
 }
 
 case "$1" in
@@ -20,22 +26,22 @@ case "$1" in
 	suspend)
 		lock || exit $?
 
-		dbus_send Suspend boolean:true
+		dbus_send Suspend
 		;;
 	hibernate)
 		lock || exit $?
 
-		dbus_send Hibernate boolean:true
+		dbus_send Hibernate
 		;;
 	reboot)
 		lock || exit $?
 
-		dbus_send Reboot boolean:true
+		dbus_send Reboot
 		;;
 	poweroff)
 		lock || exit $?
 
-		dbus_send PowerOff boolean:true
+		dbus_send PowerOff
 		;;
 	daemon)
 		# TODO start script to do power management
