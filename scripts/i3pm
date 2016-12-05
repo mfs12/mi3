@@ -2,7 +2,7 @@
 
 lock()
 {
-	i3lock -t -i ${HOME}/.i3/wallpaper.png -c 000000
+	i3lock -i ${HOME}/.i3/Commander_Keen_in_Goodbye_Galaxy_title_screen_HD.png -s -c 000000
 }
 
 dbus_send()
