@@ -189,8 +189,6 @@ bindsym $mod+Shift+p exec i3pm lock
 bindsym XF86AudioMute exec i3media volume_mute
 bindsym XF86AudioLowerVolume exec i3media volume_down
 bindsym XF86AudioRaiseVolume exec i3media volume_up
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5
-bindsym XF86MonBrightnessUp exec xbacklight -inc 5
 
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5
@@ -217,7 +215,7 @@ exec --no-startup-id xsetroot -solid "#102227"
 
 exec --no-startup-id clipit
 exec --no-startup-id dunst
-exec --no-startup-id i3pmd.py 12 8
+exec --no-startup-id i3pmd.py 8 6
+exec --no-startup-id i3display.py
 exec --no-startup-id nm-applet
 exec --no-startup-id pa-applet
-exec --no-startup-id i3pmd.py 8 6
