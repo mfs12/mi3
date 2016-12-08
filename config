@@ -269,6 +269,20 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+# keyboard map
+mode "keyboard" {
+	# These bindings trigger as soon as you enter the resize mode
+
+	bindsym d exec setxkbmap de nodeadkeys
+	bindsym e exec setxkbmap us
+
+	# back to normal: Enter or Escape
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+f mode "keyboard"
+
 bindsym $mod+Shift+p exec i3pm lock
 
 bindsym XF86AudioMute exec i3media volume_mute
