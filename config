@@ -106,7 +106,7 @@ bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
-bindsym $mod+m workspace m
+#bindsym $mod+m workspace m
 bindsym $mod+b workspace b
 bindsym $mod+s workspace next
 bindsym $mod+a workspace prev
@@ -122,11 +122,99 @@ bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
-bindsym $mod+Shift+m move container to workspace m
+#bindsym $mod+Shift+m move container to workspace m
 bindsym $mod+Shift+b move container to workspace b
 bindsym $mod+Shift+s move container to workspace next
 bindsym $mod+Shift+a move container to workspace prev
 
+bindsym $mod+m mode "move"
+
+mode "move" {
+	# back to normal: Enter or Escape
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+
+	# change focus
+	bindsym h focus left
+	bindsym j focus down
+	bindsym k focus up
+	bindsym l focus right
+
+	# alternatively, you can use the cursor keys:
+	bindsym Left focus left
+	bindsym Down focus down
+	bindsym Up focus up
+	bindsym Right focus right
+
+	# move focused window
+	bindsym Shift+h move left
+	bindsym Shift+j move down
+	bindsym Shift+k move up
+	bindsym Shift+l move right
+
+	# alternatively, you can use the cursor keys:
+	bindsym Shift+Left move left
+	bindsym Shift+Down move down
+	bindsym Shift+Up move up
+	bindsym Shift+Right move right
+
+	# split in horizontal orientation
+	bindsym Shift+v split h
+
+	# split in vertical orientation
+	bindsym v split v
+
+	# enter fullscreen mode for the focused container
+	bindsym f fullscreen
+
+	# change container layout (stacked, tabbed, toggle split)
+	bindsym q layout stacking
+	bindsym w layout tabbed
+	bindsym e layout toggle split
+
+	# toggle tiling / floating
+	bindsym Shift+space floating toggle
+
+	# change focus between tiling / floating windows bindsym space focus mode_toggle
+	# focus the parent container
+	#bindsym Shift+a focus parent
+
+	# focus the child container
+	#bindsym d focus child
+
+	# switch to workspace
+	bindsym 1 workspace 1
+	bindsym 2 workspace 2
+	bindsym 3 workspace 3
+	bindsym 4 workspace 4
+	bindsym 5 workspace 5
+	bindsym 6 workspace 6
+	bindsym 7 workspace 7
+	bindsym 8 workspace 8
+	bindsym 9 workspace 9
+	bindsym 0 workspace 10
+	bindsym m workspace m
+	bindsym b workspace b
+	bindsym s workspace next
+	bindsym a workspace prev
+
+	# move focused container to workspace
+	bindsym Shift+1 move container to workspace 1
+	bindsym Shift+2 move container to workspace 2
+	bindsym Shift+3 move container to workspace 3
+	bindsym Shift+4 move container to workspace 4
+	bindsym Shift+5 move container to workspace 5
+	bindsym Shift+6 move container to workspace 6
+	bindsym Shift+7 move container to workspace 7
+	bindsym Shift+8 move container to workspace 8
+	bindsym Shift+9 move container to workspace 9
+	bindsym Shift+0 move container to workspace 10
+	bindsym Shift+m move container to workspace m
+	bindsym Shift+b move container to workspace b
+	bindsym Shift+s move container to workspace next
+	bindsym Shift+a move container to workspace prev
+
+}
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
